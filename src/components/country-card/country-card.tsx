@@ -8,7 +8,14 @@ interface CountryCardProps {
 
 export const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   return (
-    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+      }}
+    >
       <CardMedia
         component="img"
         height="140"
