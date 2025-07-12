@@ -14,14 +14,14 @@ import { labels } from "@/utils/labels";
 
 interface CountryListProps {
   countries: Country[];
-  loading: boolean;
+  loading?: boolean;
   error?: string | null;
   height?: string | number;
 }
 
 export const CountryList: React.FC<CountryListProps> = ({
   countries,
-  loading,
+  loading = false,
   height = "70vh",
 }) => {
   const theme = useTheme();
