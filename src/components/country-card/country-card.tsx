@@ -1,77 +1,60 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Card, CardContent, Typography, CardMedia } from "@mui/material";
 import { Country } from "../../types/country";
+import Link from "next/link";
 
 interface CountryCardProps {
   country: Country;
 }
 
-export const CountryCard: React.FC<CountryCardProps> = ({ country }) => (
-  <Card
-    sx={{
-      width: "100%",
-      maxWidth: 240,
-      height: 300,
-      display: "flex",
-      flexDirection: "column",
-      m: "auto",
-      borderRadius: 1,
-      boxShadow: 3,
-      mb: 4,
-    }}
-  >
-    <CardMedia
-      component="img"
-      height="130"
-      image={country.flag}
-      alt={`Flag of ${country.name}`}
+export const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
+  return (
+    <Card
       sx={{
-        objectFit: "cover",
-        borderTopLeftRadius: 2,
-        borderTopRightRadius: 2,
-        flexShrink: 0,
-      }}
-    />
-    <CardContent
-      sx={{
-        flex: 1,
-        minHeight: 0,
-        overflow: "auto", // Enable scroll if content is too large
+        height: "100%",
         display: "flex",
         flexDirection: "column",
+        width: "100%",
       }}
     >
-      <Typography variant="body1" fontWeight={800} gutterBottom>
-        {country.name}
-      </Typography>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Population:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.population.toLocaleString()}
+      <Link
+        href={`/country/${country.code}`}
+        passHref
+        style={{ textDecoration: "none" }}
+      >
+        <CardMedia
+          component="img"
+          height="140"
+          image={country.flag}
+          alt={`Flag of ${country.name}`}
+          sx={{
+            objectFit: "cover",
+            transition: "transform 0.2s cubic-bezier(.4,2,.6,1)",
+            cursor: "pointer",
+            "&:hover": {
+              transform: "scale(1.05)",
+              boxShadow: 3,
+            },
+            "&:active": {
+              transform: "scale(0.97)",
+            },
+          }}
+        />
+      </Link>
+      <CardContent>
+        <Typography gutterBottom variant="h6" component="div">
+          {country.name}
         </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Region:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.region}
+        <Typography variant="body2" color="text.secondary">
+          <b>Population:</b> {country.population.toLocaleString()}
         </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Capital:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.capital}
+        <Typography variant="body2" color="text.secondary">
+          <b>Region:</b> {country.region}
         </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-);
+        <Typography variant="body2" color="text.secondary">
+          <b>Capital:</b> {country.capital}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
