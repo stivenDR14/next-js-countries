@@ -1,77 +1,35 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Card, CardContent, Typography, CardMedia } from "@mui/material";
 import { Country } from "../../types/country";
 
 interface CountryCardProps {
   country: Country;
 }
 
-export const CountryCard: React.FC<CountryCardProps> = ({ country }) => (
-  <Card
-    sx={{
-      width: "100%",
-      maxWidth: 240,
-      height: 300,
-      display: "flex",
-      flexDirection: "column",
-      m: "auto",
-      borderRadius: 1,
-      boxShadow: 3,
-      mb: 4,
-    }}
-  >
-    <CardMedia
-      component="img"
-      height="130"
-      image={country.flag}
-      alt={`Flag of ${country.name}`}
-      sx={{
-        objectFit: "cover",
-        borderTopLeftRadius: 2,
-        borderTopRightRadius: 2,
-        flexShrink: 0,
-      }}
-    />
-    <CardContent
-      sx={{
-        flex: 1,
-        minHeight: 0,
-        overflow: "auto", // Enable scroll if content is too large
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Typography variant="body1" fontWeight={800} gutterBottom>
-        {country.name}
-      </Typography>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Population:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.population.toLocaleString()}
+export const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
+  return (
+    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <CardMedia
+        component="img"
+        height="140"
+        image={country.flag}
+        alt={`Flag of ${country.name}`}
+        sx={{ objectFit: "cover" }}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h6" component="div">
+          {country.name}
         </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Region:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.region}
+        <Typography variant="body2" color="text.secondary">
+          <b>Population:</b> {country.population.toLocaleString()}
         </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body2" fontWeight={600} component="span">
-          Capital:
-        </Typography>{" "}
-        <Typography variant="body2" component="span">
-          {country.capital}
+        <Typography variant="body2" color="text.secondary">
+          <b>Region:</b> {country.region}
         </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-);
+        <Typography variant="body2" color="text.secondary">
+          <b>Capital:</b> {country.capital}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
