@@ -32,3 +32,24 @@ export function restCountriesToCountryDetail(apiCountry: any): CountryDetail {
       : "",
   };
 }
+
+export async function fetchCountriesWithRevalidation(): Promise<Country[]> {
+  try {
+    const res = await fetch(
+      "https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital,cca3",
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch countries");
+    }
+
+    const data = await res.json();
+    return data.map(restCountriesToCountry);
+  } catch (error) {
+    console.error("Error fetching countries:", error);
+    return [];
+  }
+}
