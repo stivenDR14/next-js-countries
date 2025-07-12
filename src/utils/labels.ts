@@ -16,4 +16,13 @@ export const labels = {
   error: "Oops! Something went wrong.",
   errorDescription: "An unexpected error has occurred. Please try again.",
   tryAgain: "Try Again",
+  back: "Back",
+  nativeName: "Native Name",
+  topLevelDomain: "Top Level Domain",
+  currencies: "Currencies",
+  languages: "Languages",
+  borderCountries: "Border Countries",
+  subRegion: "Sub Region",
+  none: "None",
+  noInformation: "No information found.",
 };

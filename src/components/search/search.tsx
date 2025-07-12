@@ -18,7 +18,6 @@ export const Search: React.FC<SearchProps> = ({ value, onChange }) => (
     sx={{
       my: 2,
       maxWidth: { xs: "100%", md: 500 },
-      mx: "auto",
       backgroundColor: "primary.main",
     }}
     slotProps={{
