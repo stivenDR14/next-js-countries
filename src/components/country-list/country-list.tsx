@@ -5,12 +5,12 @@ import {
   CircularProgress,
   useMediaQuery,
   useTheme,
-  Alert,
   Grid,
 } from "@mui/material";
 import { Country } from "../../types/country";
 import { CountryCard } from "../country-card/country-card";
 import { useVirtualize } from "../../hooks/use-virtualize";
+import { labels } from "@/utils/labels";
 
 interface CountryListProps {
   countries: Country[];
@@ -22,7 +22,6 @@ interface CountryListProps {
 export const CountryList: React.FC<CountryListProps> = ({
   countries,
   loading,
-  error,
   height = "70vh",
 }) => {
   const theme = useTheme();
@@ -30,13 +29,11 @@ export const CountryList: React.FC<CountryListProps> = ({
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // Determinar columnas según breakpoint
   let columns = 1;
   if (isLgUp) columns = 4;
   else if (isMdUp) columns = 3;
   else if (isSmUp) columns = 2;
 
-  // Agrupar países en filas
   const rows = useMemo(() => {
     const result: Country[][] = [];
     for (let i = 0; i < countries.length; i += columns) {
@@ -60,15 +57,7 @@ export const CountryList: React.FC<CountryListProps> = ({
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box sx={{ p: 2 }}>
-        <Alert severity="error">{error}</Alert>
+        <CircularProgress color="secondary" />
       </Box>
     );
   }
@@ -76,7 +65,7 @@ export const CountryList: React.FC<CountryListProps> = ({
   if (!countries.length) {
     return (
       <Box sx={{ p: 2 }}>
-        <Typography>No countries found.</Typography>
+        <Typography>{labels.noInformation}</Typography>
       </Box>
     );
   }

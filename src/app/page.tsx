@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
@@ -15,11 +15,10 @@ export default function HomePage() {
   const { countries, loading, error } = useCountries();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) setSnackbarOpen(true);
   }, [error]);
 
-  // Filtro por búsqueda y región
   const filteredCountries = countries.filter((country) => {
     const matchesSearch = country.name
       .toLowerCase()
@@ -41,11 +40,7 @@ export default function HomePage() {
         <Search value={search} onChange={setSearch} />
         <Filter region={region} onChange={setRegion} />
       </Box>
-      <CountryList
-        countries={filteredCountries}
-        loading={loading}
-        error={error}
-      />
+      <CountryList countries={filteredCountries} loading={loading} />
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
